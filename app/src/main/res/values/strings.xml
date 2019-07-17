@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">SportSupport</string>
-    <string name="full_name">Full Name</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="sign_up">SIGN UP</string>
     <string name="log_in">Log In</string>
+    <string name="full_name">Full Name</string>
+    <string name="comfirm_password">Comfirm Password</string>
 </resources>

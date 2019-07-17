@@ -1,10 +1,8 @@
 package com.iedayan03.sportsupport;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.app.AlertDialog;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

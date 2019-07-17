@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     EditText etUsername, etPassword;
-    Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +25,10 @@ public class MainActivity extends AppCompatActivity {
         BackgroundWorker backgroundWorker = new BackgroundWorker(this);
         String type = "login";
         backgroundWorker.execute(type, username, password);
+    }
+
+    // maybe separate login and register as different activities
+    public void Register(View view) {
+        // have not setup the new edit texts so won't work until fixed
     }
 }
