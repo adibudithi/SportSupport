@@ -1,6 +1,7 @@
 package com.iedayan03.sportsupport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.app.AlertDialog;
 
@@ -15,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+
 
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
@@ -75,8 +77,13 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+        if (result.equals("Success")) {
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+        } else if (result.equals("Invalid")) {
+            alertDialog.setMessage("Username or Password is Incorrect. Please try again.");
+            alertDialog.show();
+        }
     }
 
     @Override
