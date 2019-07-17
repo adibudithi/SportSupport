@@ -91,6 +91,7 @@
         android:layout_marginBottom="8dp"
         android:background="#EB7A58"
         android:hint="@string/sign_up"
+        android:onClick="Register"
         android:textColorLink="#00070707"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
