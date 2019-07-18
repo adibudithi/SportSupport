@@ -1,5 +1,6 @@
 package com.iedayan03.sportsupport;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 
 public class HomeFragment extends Fragment {
 
+    ListView fieldListView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -20,7 +23,7 @@ public class HomeFragment extends Fragment {
 
         // we will need to query the fields from our database and store it as JSON
         String[] items = {"Field1", "Field2", "Field2"};
-        ListView fieldListView = view.findViewById(R.id.fieldListView);
+        fieldListView = view.findViewById(R.id.fieldListView);
 
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
             getActivity(), android.R.layout.simple_list_item_1, items
@@ -28,6 +31,18 @@ public class HomeFragment extends Fragment {
 
         fieldListView.setAdapter(listViewAdapter);
 
+
+
         return view;
     }
+
+    private class GetHttpResponse extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
+
+
 }
