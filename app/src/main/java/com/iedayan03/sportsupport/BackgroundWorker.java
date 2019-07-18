@@ -1,8 +1,10 @@
 package com.iedayan03.sportsupport;
 
 import android.content.Context;
+//import android.content.Intent;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.app.AlertDialog;
 
 import java.io.BufferedReader;
@@ -21,7 +23,8 @@ import java.net.URLEncoder;
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
     Context context;
-    AlertDialog alertDialog;
+    private AlertDialog alertDialog;
+
     BackgroundWorker (Context ctx) {
         context = ctx;
     }
@@ -33,7 +36,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         String register_url = "http://iedayan03.web.illinois.edu/register.php";
         if(type.equals("login")) {
             try {
-                String user_name = params[1];
+                String userName = params[1];
                 String password = params[2];
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -42,7 +45,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("Username","UTF-8")+"="+URLEncoder.encode(user_name,"UTF-8")+"&"
+                String post_data = URLEncoder.encode("Username","UTF-8")+"="+URLEncoder.encode(userName,"UTF-8")+"&"
                         + URLEncoder.encode("Password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -106,7 +109,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");
+//        alertDialog.setTitle("Login Status");
     }
 
     @Override
@@ -118,6 +121,13 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             alertDialog.setMessage("Username or Password is Incorrect. Please try again.");
             alertDialog.show();
         }
+//        Log.i("BackgroundWorker", result);
+//        if (result.equals("Success")) {
+//            session.setValidLogin(true);
+//        } else if (result.equals("Invalid")) {
+//            session.setValidLogin(false);
+//        }
+
     }
 
     @Override
