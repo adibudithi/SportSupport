@@ -2,6 +2,7 @@ package com.iedayan03.sportsupport;
 
 import android.app.Activity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,15 +20,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    selectedFragment = new HomeFragment();
+                    break;
                 case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_user_profile);
-                    return true;
+                    selectedFragment = new ProfileFragment();
+                    break;
             }
-            return false;
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            return true;
         }
     };
 
