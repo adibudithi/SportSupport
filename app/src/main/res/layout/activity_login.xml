@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D1C5C5"
+    android:background="#FFFFFF"
     tools:context=".LoginActivity">
 
     <EditText
@@ -71,7 +71,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#EB7A58"
+        android:background="#FF9800"
         android:hint="@string/log_in"
         android:onClick="Login"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -131,7 +131,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#EB7A58"
+        android:background="#FF9800"
         android:text="@string/register"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"

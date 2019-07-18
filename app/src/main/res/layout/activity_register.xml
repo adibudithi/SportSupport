@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D1C5C5"
+    android:background="#FFFFFF"
     tools:context=".RegisterActivity">
 
     <EditText
@@ -89,7 +89,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#EB7A58"
+        android:background="#FF9800"
         android:hint="@string/sign_up"
         android:onClick="Register"
         android:textColorLink="#00070707"
@@ -127,7 +127,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#EB7A58"
+        android:background="#FF9800"
         android:hint="@string/log_in"
         android:textColorLink="#00070707"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,12 +147,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/todo2"
         app:layout_constraintBottom_toTopOf="@+id/fullName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.565"
-        app:srcCompat="@drawable/sportsupport"
-        android:contentDescription="@string/todo2" />
+        app:srcCompat="@drawable/sportsupport" />
 </androidx.constraintlayout.widget.ConstraintLayout>
