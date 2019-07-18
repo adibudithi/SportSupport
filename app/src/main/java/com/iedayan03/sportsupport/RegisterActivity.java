@@ -1,5 +1,6 @@
 package com.iedayan03.sportsupport;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,11 +13,14 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String KEY_EMPTY = "";
 
     EditText etFullName, etUsername, etPassword;
+    private SessionHandler session;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        session = new SessionHandler(getApplicationContext());
 
         etFullName = findViewById(R.id.fullName);
         etUsername = findViewById(R.id.username);
@@ -43,6 +47,19 @@ public class RegisterActivity extends AppCompatActivity {
             BackgroundWorker backgroundWorker = new BackgroundWorker(this);
             String type = "register";
             backgroundWorker.execute(type, fullName, username, password);
+//            boolean validLogin = session.getValidLogin();
+//
+//            if (validLogin == true) {
+//                session.loginUser(username, password);
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            } else if (validLogin == false) {
+//                alertDialog = new AlertDialog.Builder(this).create();
+//                alertDialog.setTitle("Login Status");
+//                alertDialog.setMessage("Username or Password is Incorrect. Please try again.");
+//                alertDialog.show();
+//            }
         }
     }
 
