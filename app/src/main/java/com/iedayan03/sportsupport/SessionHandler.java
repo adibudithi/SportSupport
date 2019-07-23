@@ -14,7 +14,6 @@ public class SessionHandler {
     private Context mContext;
     private SharedPreferences.Editor mEditor;
     private SharedPreferences mPreferences;
-    private boolean validLogin = false;
 
     public SessionHandler(Context ctx) {
         this.mContext = ctx;
@@ -62,14 +61,6 @@ public class SessionHandler {
         user.setSessionExpiryDate(new Date(mPreferences.getLong(KEY_EXPIRES, 0)));
 
         return user;
-    }
-
-    public void setValidLogin(boolean valid) {
-        this.validLogin = valid;
-    }
-
-    public boolean getValidLogin() {
-        return this.validLogin;
     }
 
     public void logOut() {
