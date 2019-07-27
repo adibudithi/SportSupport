@@ -27,12 +27,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- *
+ * A simple fragment that displays a list of soccer fields.
  */
 public class HomeFragment extends Fragment {
 
-    ListView fieldListView;
+    private static final String FIELD_NAME = "Field Name";
+    public static final String FIELD_ADDRESS = "Field Address";
+
+    ListView fieldListView; // We could maybe implement a RecyclerView. Should look into it if we have time.
     ArrayList<String> fieldArray;
+    ArrayList<String> fieldAddresses;
     private RequestQueue mQueue;
     private String fetchMoviesUrl = "http://iedayan03.web.illinois.edu/fetch_fields.php";
 
@@ -42,6 +46,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         fieldListView = view.findViewById(R.id.fieldListView);
         fieldArray = new ArrayList<>();
+        fieldAddresses = new ArrayList<>();
         mQueue = Volley.newRequestQueue(getActivity());
         loadFields();
 
@@ -54,9 +59,11 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Make sure to send more data/information about the soccer field. I have not yet retrieved
                 // other information about the soccer field from the database.
-                String item = (String) adapterView.getItemAtPosition(position);
+                String itemName = (String) adapterView.getItemAtPosition(position);
+                String itemAddress = fieldAddresses.get(position);
                 Intent intent = new Intent(getContext(), FieldActivity.class);
-                intent.putExtra("Field Name", item);
+                intent.putExtra(FIELD_NAME, itemName);
+                intent.putExtra(FIELD_ADDRESS, itemAddress);
                 startActivity(intent);
             }
         });
@@ -77,7 +84,9 @@ public class HomeFragment extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject field = jsonArray.getJSONObject(i);
                         String fieldName = field.getString("place_name");
+                        String fieldAddress = field.getString("address");
                         fieldArray.add(fieldName);
+                        fieldAddresses.add(fieldAddress);
                     }
 
                     displayFields();
