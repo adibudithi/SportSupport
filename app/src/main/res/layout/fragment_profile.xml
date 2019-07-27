@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:hint="Log Out"
+        android:hint="@string/log_out"
         android:layout_centerInParent="true"
         android:layout_below="@+id/thisUser"
         />
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:hint="Delete Account (CAREFUL)"
+        android:hint="@string/delete_account_careful"
         android:layout_centerInParent="true"
         android:layout_below="@+id/logOut"
         />

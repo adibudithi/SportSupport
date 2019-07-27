@@ -1,9 +1,11 @@
 package com.iedayan03.sportsupport;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,6 +26,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class HomeFragment extends Fragment {
 
     ListView fieldListView;
@@ -39,6 +44,23 @@ public class HomeFragment extends Fragment {
         fieldArray = new ArrayList<>();
         mQueue = Volley.newRequestQueue(getActivity());
         loadFields();
+
+        /**
+         * A listener that will direct the user to the activity "FieldActivity" when a soccer field
+         * is clicked. This is incomplete as of now.
+         */
+        fieldListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Make sure to send more data/information about the soccer field. I have not yet retrieved
+                // other information about the soccer field from the database.
+                String item = (String) adapterView.getItemAtPosition(position);
+                Intent intent = new Intent(getContext(), FieldActivity.class);
+                intent.putExtra("Field Name", item);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
