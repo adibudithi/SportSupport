@@ -2,12 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@android:color/holo_green_light">
-    
-    <TextView
+
+    <EditText
+        android:id="@+id/position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile Fragment"
+        android:hint="Position"
+        android:layout_centerInParent="true"
         android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        />
+    <TextView
+        android:id="@+id/thisUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/position"
+        />
+    <Button
+        android:id="@+id/logOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Log Out"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/thisUser"
+        />
+    <Button
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Delete Account (CAREFUL)"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/logOut"
+        />
+
+
+
+
 
 </RelativeLayout>
