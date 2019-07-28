@@ -2,14 +2,21 @@ package com.iedayan03.sportsupport;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import android.se.omapi.Session;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+
 
 
 import androidx.annotation.NonNull;
@@ -31,6 +38,7 @@ import java.net.URLEncoder;
 public class ProfileFragment extends Fragment {
     User current;
     private SessionHandler session;
+    SharedPreferences sp;
 
     @Nullable
     @Override
@@ -73,6 +81,37 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        final Spinner position = view.findViewById(R.id.position);
+
+        String[] items = new String[]{"GK", "LB", "RB","CD","DM","CM","CAM","LM","RM","ST"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        position.setAdapter(adapter);
+        SharedPreferences sp = getActivity().getSharedPreferences("Position", Context.MODE_PRIVATE);
+        int spinnerValue = sp.getInt("spinner_item",-1);
+        if(spinnerValue != -1) {
+            // set the value of the spinner
+            position.setSelection(spinnerValue,true);
+        }
+        position.setOnItemSelectedListener(new OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int new_position, long id)
+            {
+
+
+                String selectedItem = parent.getItemAtPosition(new_position).toString();
+                int selected_item =  position.getSelectedItemPosition();
+                SharedPreferences sp = getActivity().getSharedPreferences("Position",0);
+                SharedPreferences.Editor prefEditor = sp.edit();
+                prefEditor.putInt("spinner_item", selected_item);
+                prefEditor.commit();
+                changePosition(selectedItem);
+
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
         return view;
     }
     public void accountDelete(View view){
@@ -101,6 +140,61 @@ public class ProfileFragment extends Fragment {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("Username","UTF-8")+"="+URLEncoder.encode(userName,"UTF-8")+"&"
+                        + URLEncoder.encode("Password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line;
+                while((line = bufferedReader.readLine())!= null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    public void changePosition(String new_position){
+        String username = current.getUsername();
+        String password = current.getPassword();
+        String position = new_position;
+        new positionChanger(getActivity()).execute(position,username,password);
+    }
+    private class positionChanger extends AsyncTask<String, Void, String> {
+        Context context;
+        private String new_pos;
+        private String userName;
+        private String password;
+
+        String position_url = "http://iedayan03.web.illinois.edu/change_position.php";
+        public positionChanger(Context ctx) {
+            context = ctx;
+        }
+        @Override
+        protected String doInBackground(String... params){
+            try{
+                new_pos = params[0];
+                userName = params[1];
+                password = params[2];
+                URL url = new URL(position_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("Position","UTF-8")+"="+URLEncoder.encode(new_pos,"UTF-8")+"&"
+                        + URLEncoder.encode("Username","UTF-8")+"="+URLEncoder.encode(userName,"UTF-8")+"&"
                         + URLEncoder.encode("Password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
