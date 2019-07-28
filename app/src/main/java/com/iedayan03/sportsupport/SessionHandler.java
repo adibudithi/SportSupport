@@ -67,4 +67,8 @@ public class SessionHandler {
         mEditor.clear();
         mEditor.commit();
     }
+
+    public SharedPreferences getmPreferences() {
+        return mPreferences;
+    }
 }
