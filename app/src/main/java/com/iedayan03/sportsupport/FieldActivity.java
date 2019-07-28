@@ -14,8 +14,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +34,7 @@ public class FieldActivity extends AppCompatActivity {
     private static final String FIELD_PLACE_ID = "Field PlaceId";
     private static final String joinGameURL = "http://iedayan03.web.illinois.edu/join_game.php";
     private static final String leaveGameURL = "http://iedayan03.web.illinois.edu/leave_game.php";
+    private static final String fetchPlayersURL = "http://iedayan03.web.illinois.edu/fetch_players.php";
     private static final String JOIN_GAME_ERROR_RESPONSE = "You Can Only Join Once";
     private static final String LEAVE_GAME_ERROR_RESPONSE = "You Have Already Left The Game";
 
@@ -52,6 +58,7 @@ public class FieldActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field);
 
+        queue = Volley.newRequestQueue(this);
         session = new SessionHandler(getApplicationContext());
         currUser = session.getUserDetails();
         playerName = currUser.getUsername();
@@ -68,11 +75,10 @@ public class FieldActivity extends AppCompatActivity {
         fieldAddressTextView.setText(fieldAddress);
 
         playerNames = new ArrayList<>(22);
+        loadPlayers();
         playerListView = findViewById(R.id.playerListViewId);
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, playerNames);
         playerListView.setAdapter(adapter);
-
-        queue = Volley.newRequestQueue(this);
 
         /**
          * OnClickListener that adds a player's name to the arraylist "playerName"
@@ -156,5 +162,37 @@ public class FieldActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    /**
+     * Initializes the arraylist 'playerNames' with other players who have already joined the game.
+     */
+    private void loadPlayers() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, fetchPlayersURL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject field = jsonArray.getJSONObject(i);
+                        String playerName = field.getString("Username");
+                        playerNames.add(playerName);
+                        adapter.notifyDataSetChanged();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        queue.add(request);
     }
 }
