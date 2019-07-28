@@ -6,15 +6,31 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+// NOTE: INCOMPLETE
 public class FieldActivity extends AppCompatActivity {
 
     private static final String FIELD_NAME = "Field Name";
-    public static final String FIELD_ADDRESS = "Field Address";
+    private static final String FIELD_ADDRESS = "Field Address";
+    private static final String FIELD_PLACE_ID = "Field PlaceId";
+    private static final String joinGameURL = "http://iedayan03.web.illinois.edu/join_game.php";
+    private static final String leaveGameURL = "http://iedayan03.web.illinois.edu/leave_game.php";
+    private static final String JOIN_GAME_ERROR_RESPONSE = "You Can Only Join Once";
+    private static final String LEAVE_GAME_ERROR_RESPONSE = "You Have Already Left The Game";
 
     private ArrayList<String> playerNames;
     private ListView playerListView;
@@ -28,6 +44,8 @@ public class FieldActivity extends AppCompatActivity {
     private SessionHandler session;
     private User currUser;
     private String playerName;
+    private String place_id; // primary key of Field
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +63,7 @@ public class FieldActivity extends AppCompatActivity {
         fieldAddressTextView = findViewById(R.id.fieldAddressId);
         String fieldName = getIntent().getExtras().getString(FIELD_NAME);
         String fieldAddress = getIntent().getExtras().getString(FIELD_ADDRESS);
+        place_id = getIntent().getExtras().getString(FIELD_PLACE_ID);
         fieldNameTextView.setText(fieldName);
         fieldAddressTextView.setText(fieldAddress);
 
@@ -53,18 +72,43 @@ public class FieldActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, playerNames);
         playerListView.setAdapter(adapter);
 
+        queue = Volley.newRequestQueue(this);
+
         /**
          * OnClickListener that adds a player's name to the arraylist "playerName"
          */
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String playerName = currUser.getUsername();
-
                 // check if player has already been added
                 if (playerNames.indexOf(playerName) == -1) {
-                    playerNames.add(playerName);
-                    adapter.notifyDataSetChanged();
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, joinGameURL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    int retval = Integer.parseInt(response);
+                                    if (retval == 1) {
+                                        playerNames.add(playerName);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                    }) {
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("place_id", place_id);
+                            params.put("Username", playerName);
+                            return params;
+                        }
+                    };
+
+                    queue.add(postRequest);
+                } else {
+                    Toast.makeText(getApplicationContext(), JOIN_GAME_ERROR_RESPONSE, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -73,15 +117,42 @@ public class FieldActivity extends AppCompatActivity {
          * OnClickListener that removes a player's name from the arraylist "playerName"
          */
         leaveBtn.setOnClickListener(new View.OnClickListener() {
+
+            private int indexOfPlayer;
+
             @Override
             public void onClick(View view) {
-                String playerName = currUser.getUsername();
-                int index = playerNames.indexOf(playerName);
+                indexOfPlayer = playerNames.indexOf(playerName);
 
                 // check if player is in the list
-                if (index != -1) {
-                    playerNames.remove(index);
-                    adapter.notifyDataSetChanged();
+                if (indexOfPlayer != -1) {
+                    StringRequest postRequest = new StringRequest(Request.Method.POST, leaveGameURL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    int retval = Integer.parseInt(response);
+                                    if (retval == 1) {
+                                        playerNames.remove(indexOfPlayer);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("place_id", place_id);
+                            params.put("Username", playerName);
+                            return params;
+                        }
+                    };
+
+                    queue.add(postRequest);
+                } else {
+                    Toast.makeText(getApplicationContext(), LEAVE_GAME_ERROR_RESPONSE, Toast.LENGTH_LONG).show();
                 }
             }
         });

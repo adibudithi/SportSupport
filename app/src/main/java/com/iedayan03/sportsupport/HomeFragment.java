@@ -33,10 +33,12 @@ public class HomeFragment extends Fragment {
 
     private static final String FIELD_NAME = "Field Name";
     public static final String FIELD_ADDRESS = "Field Address";
+    private static final String FIELD_PLACE_ID = "Field PlaceId";
 
     ListView fieldListView; // We could maybe implement a RecyclerView. Should look into it if we have time.
     ArrayList<String> fieldArray;
     ArrayList<String> fieldAddresses;
+    ArrayList<String> fieldPlaceIds;
     private RequestQueue mQueue;
     private String fetchMoviesUrl = "http://iedayan03.web.illinois.edu/fetch_fields.php";
 
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
         fieldListView = view.findViewById(R.id.fieldListView);
         fieldArray = new ArrayList<>();
         fieldAddresses = new ArrayList<>();
+        fieldPlaceIds = new ArrayList<>();
         mQueue = Volley.newRequestQueue(getActivity());
         loadFields();
 
@@ -61,9 +64,12 @@ public class HomeFragment extends Fragment {
                 // other information about the soccer field from the database.
                 String itemName = (String) adapterView.getItemAtPosition(position);
                 String itemAddress = fieldAddresses.get(position);
+                String fieldPlaceId = fieldPlaceIds.get(position);
+
                 Intent intent = new Intent(getContext(), FieldActivity.class);
                 intent.putExtra(FIELD_NAME, itemName);
                 intent.putExtra(FIELD_ADDRESS, itemAddress);
+                intent.putExtra(FIELD_PLACE_ID, fieldPlaceId);
                 startActivity(intent);
             }
         });
@@ -85,8 +91,10 @@ public class HomeFragment extends Fragment {
                         JSONObject field = jsonArray.getJSONObject(i);
                         String fieldName = field.getString("place_name");
                         String fieldAddress = field.getString("address");
+                        String fieldPlaceId = field.getString("place_id");
                         fieldArray.add(fieldName);
                         fieldAddresses.add(fieldAddress);
+                        fieldPlaceIds.add(fieldPlaceId);
                     }
 
                     displayFields();
