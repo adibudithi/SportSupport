@@ -51,17 +51,13 @@ public class PlayerViewActivity extends AppCompatActivity {
         goalsTextView = findViewById(R.id.goalsId);
         assistsTextView = findViewById(R.id.assistsId);
 
+        userNameTextView.setText(username);
         loadUserDetails();
 
-        userNameTextView.setText(username);
-        if (fullName != null) fullNameTextView.setText(fullName);
-        if (position != null) positionTextView.setText(position);
-        goalsTextView.setText(String.valueOf(goals));
-        assistsTextView.setText(String.valueOf(assists));
     }
 
     /**
-     *
+     * Makes a Volley GET Request to fetch the details of the User from the database.
      */
     private void loadUserDetails() {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, fetchUserURL, null, new Response.Listener<JSONObject>() {
@@ -70,10 +66,10 @@ public class PlayerViewActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = response.getJSONArray("data");
                     JSONObject player = jsonArray.getJSONObject(0);
-                    fullName = player.getString("FullName");
-                    position = player.getString("Position");
-                    goals = player.getInt("Goals");
-                    assists = player.getInt("Assists");
+                    fullNameTextView.setText(player.getString("FullName"));
+                    positionTextView.setText(player.getString("Position"));
+                    goalsTextView.setText(String.valueOf(player.getInt("Goals")));
+                    assistsTextView.setText(String.valueOf(player.getInt("Assists")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
