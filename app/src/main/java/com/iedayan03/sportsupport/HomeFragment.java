@@ -112,6 +112,9 @@ public class HomeFragment extends Fragment {
         mQueue.add(request);
     }
 
+    /**
+     *
+     */
     private void displayFields() {
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
             getActivity(), android.R.layout.simple_list_item_1, fieldArray

@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-// NOTE: INCOMPLETE
+// NOTE: 1. Need to implement timestamp(startTime and endTime).
+//       2. If user deletes account, need to remove details of user from Game.
+//       3. Fix loadPlayers() !!
+//       4.
 public class FieldActivity extends AppCompatActivity {
 
     private static final String FIELD_NAME = "Field Name";
@@ -35,6 +38,7 @@ public class FieldActivity extends AppCompatActivity {
     private static final String joinGameURL = "http://iedayan03.web.illinois.edu/join_game.php";
     private static final String leaveGameURL = "http://iedayan03.web.illinois.edu/leave_game.php";
     private static final String fetchPlayersURL = "http://iedayan03.web.illinois.edu/fetch_players.php";
+    private static final String postInfoURL = "http://iedayan03.web.illinois.edu/.php";
     private static final String JOIN_GAME_ERROR_RESPONSE = "You Can Only Join Once";
     private static final String LEAVE_GAME_ERROR_RESPONSE = "You Have Already Left The Game";
 
@@ -130,7 +134,7 @@ public class FieldActivity extends AppCompatActivity {
             public void onClick(View view) {
                 indexOfPlayer = playerNames.indexOf(playerName);
 
-                // check if player is in the list
+                // check if player is in the list, if player exists then do not add again.
                 if (indexOfPlayer != -1) {
                     StringRequest postRequest = new StringRequest(Request.Method.POST, leaveGameURL,
                             new Response.Listener<String>() {
@@ -168,6 +172,7 @@ public class FieldActivity extends AppCompatActivity {
      * Initializes the arraylist 'playerNames' with other players who have already joined the game.
      */
     private void loadPlayers() {
+        // Need to send information about which field it is by sending a POST request.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, fetchPlayersURL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -179,7 +184,6 @@ public class FieldActivity extends AppCompatActivity {
                         String playerName = field.getString("Username");
                         playerNames.add(playerName);
                         adapter.notifyDataSetChanged();
-
                     }
 
                 } catch (JSONException e) {
@@ -191,7 +195,15 @@ public class FieldActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        }) {
+
+            // NEW
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("place_id", place_id);
+                return params;
+            }
+        };
 
         queue.add(request);
     }

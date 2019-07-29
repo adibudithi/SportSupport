@@ -5,19 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import android.se.omapi.Session;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-
-
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,14 +32,13 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class ProfileFragment extends Fragment {
+
     User current;
     private SessionHandler session;
     SharedPreferences sp;
 
     @Nullable
     @Override
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         session = new SessionHandler(getContext());
@@ -114,11 +109,13 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
+
     public void accountDelete(View view){
       String username = current.getUsername();
       String password = current.getPassword();
       new accountDeleter(getActivity()).execute(username,password);
     }
+
     private class accountDeleter extends AsyncTask<String, Void, String> {
         Context context;
         private String userName;
