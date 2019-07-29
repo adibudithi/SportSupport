@@ -28,7 +28,7 @@ import java.util.Map;
 
 // NOTE: 1. Need to implement timestamp(startTime and endTime).
 //       2. If user deletes account, need to remove details of user from Game.
-//       3. Fix loadPlayers() !!
+//       3.
 //       4.
 public class FieldActivity extends AppCompatActivity {
 
@@ -37,7 +37,6 @@ public class FieldActivity extends AppCompatActivity {
     private static final String FIELD_PLACE_ID = "Field PlaceId";
     private static final String joinGameURL = "http://iedayan03.web.illinois.edu/join_game.php";
     private static final String leaveGameURL = "http://iedayan03.web.illinois.edu/leave_game.php";
-    private static final String postInfoURL = "http://iedayan03.web.illinois.edu/.php";
     private static final String JOIN_GAME_ERROR_RESPONSE = "You Can Only Join Once";
     private static final String LEAVE_GAME_ERROR_RESPONSE = "You Have Already Left The Game";
 
@@ -78,7 +77,6 @@ public class FieldActivity extends AppCompatActivity {
         fieldAddressTextView.setText(fieldAddress);
 
         playerNames = new ArrayList<>(22);
-//        loadPlayers();
         playerListView = findViewById(R.id.playerListViewId);
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, playerNames);
         playerListView.setAdapter(adapter);
