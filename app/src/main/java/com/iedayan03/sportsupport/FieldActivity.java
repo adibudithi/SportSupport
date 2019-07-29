@@ -133,7 +133,7 @@ public class FieldActivity extends AppCompatActivity {
             public void onClick(View view) {
                 indexOfPlayer = playerNames.indexOf(playerName);
 
-                // check if player is in the list, if player exists then do not add again.
+                // check if player is in the list, if player does not exist, do not remove again (should be safe though).
                 if (indexOfPlayer != -1) {
                     StringRequest postRequest = new StringRequest(Request.Method.POST, leaveGameURL,
                             new Response.Listener<String>() {
@@ -143,6 +143,16 @@ public class FieldActivity extends AppCompatActivity {
                                     if (retval == 1) {
                                         playerNames.remove(indexOfPlayer);
                                         adapter.notifyDataSetChanged();
+                                    } else if (retval == -1) {
+                                        Toast.makeText(
+                                                getApplicationContext(),
+                                                "Cannot leave game after it has ended",
+                                                Toast.LENGTH_SHORT).show();
+                                    } else if (retval == 0){
+                                        Toast.makeText(
+                                                getApplicationContext(),
+                                                "SQL ERROR",
+                                                Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }, new Response.ErrorListener() {
