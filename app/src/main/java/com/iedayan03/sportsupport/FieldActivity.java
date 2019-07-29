@@ -1,7 +1,9 @@
 package com.iedayan03.sportsupport;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,15 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-// NOTE: 1. Need to implement timestamp(startTime and endTime).
-//       2. If user deletes account, need to remove details of user from Game.
-//       3.
-//       4.
 public class FieldActivity extends AppCompatActivity {
 
     private static final String FIELD_NAME = "Field Name";
     private static final String FIELD_ADDRESS = "Field Address";
     private static final String FIELD_PLACE_ID = "Field PlaceId";
+    private static final String USERNAME = "Username";
     private static final String joinGameURL = "http://iedayan03.web.illinois.edu/join_game.php";
     private static final String leaveGameURL = "http://iedayan03.web.illinois.edu/leave_game.php";
     private static final String JOIN_GAME_ERROR_RESPONSE = "You Can Only Join Once";
@@ -163,6 +162,16 @@ public class FieldActivity extends AppCompatActivity {
                 }
             }
         });
+
+        playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String username = playerNames.get(position);
+                Intent intent = new Intent(view.getContext(), PlayerViewActivity.class);
+                intent.putExtra(USERNAME, username);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -195,8 +204,10 @@ public class FieldActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject field = jsonArray.getJSONObject(i);
                         String playerName = field.getString("Username");
-                        playerNames.add(playerName);
-                        adapter.notifyDataSetChanged();
+                        if (playerNames.contains(playerName) == false) {
+                            playerNames.add(playerName);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
 
                 } catch (JSONException e) {
