@@ -70,7 +70,9 @@ public class HomeFragment extends Fragment {
                 intent.putExtra(FIELD_NAME, itemName);
                 intent.putExtra(FIELD_ADDRESS, itemAddress);
                 intent.putExtra(FIELD_PLACE_ID, fieldPlaceId);
+                mQueue.stop();
                 startActivity(intent);
+
             }
         });
 
@@ -96,7 +98,6 @@ public class HomeFragment extends Fragment {
                         fieldAddresses.add(fieldAddress);
                         fieldPlaceIds.add(fieldPlaceId);
                     }
-
                     displayFields();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -116,11 +117,12 @@ public class HomeFragment extends Fragment {
      *
      */
     private void displayFields() {
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
-            getActivity(), android.R.layout.simple_list_item_1, fieldArray
-        );
-
-        fieldListView.setAdapter(listViewAdapter);
+        if (getActivity() != null){
+            ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
+                    getActivity(), android.R.layout.simple_list_item_1, fieldArray
+            );
+            fieldListView.setAdapter(listViewAdapter);
+        }
     }
 
 }

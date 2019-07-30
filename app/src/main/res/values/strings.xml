@@ -104,10 +104,13 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">SportSupport</string>
     <string name="title_home">Home</string>
-    <!--<string name="title_dashboard">Dashboard</string>-->
     <string name="title_user_profile">Profile</string>
     <string name="log_out">Log Out</string>
     <string name="delete_account_careful">Delete Account</string>
     <string name="leave_button_text">Leave</string>
     <string name="join_button_text">Join</string>
+    <string name="end_game_button_text">End Game</string>
+    <string name="goals_recorded_template">Goals: %d</string>
+    <string name="assists_recorded_template">Assists: %d</string>
+    <string name="record_game_button_text">Record Game</string>
 </resources>

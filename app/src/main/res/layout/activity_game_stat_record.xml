@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameStatRecordActivity">
+
+    <!-- Assists Count-->
+    <TextView
+        android:id="@+id/assists_record_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/goals_record_view"
+        android:text="@string/assists_recorded_template"
+        android:textSize="24sp"
+        />
+    <Button
+        android:id="@+id/increase_assists_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="increaseAssists"
+        app:layout_constraintBottom_toTopOf="@+id/assists_record_view"
+        app:layout_constraintStart_toStartOf="@+id/assists_record_view"
+        app:layout_constraintEnd_toEndOf="@+id/assists_record_view"
+        android:text="+"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/decrease_assists_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="decreaseAssists"
+        app:layout_constraintTop_toBottomOf="@+id/assists_record_view"
+        app:layout_constraintStart_toStartOf="@+id/assists_record_view"
+        app:layout_constraintEnd_toEndOf="@+id/assists_record_view"
+        android:text="-"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <!-- Goals Scored Count-->
+    <TextView
+        android:id="@+id/goals_record_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/assists_record_view"
+        android:text="@string/goals_recorded_template"
+        android:textSize="24sp"
+        />
+    <Button
+        android:id="@+id/increase_goals_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="increaseGoals"
+        app:layout_constraintBottom_toTopOf="@+id/goals_record_view"
+        app:layout_constraintStart_toStartOf="@+id/goals_record_view"
+        app:layout_constraintEnd_toEndOf="@+id/goals_record_view"
+        android:text="+"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/decrease_goals_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="decreaseGoals"
+        app:layout_constraintTop_toBottomOf="@+id/goals_record_view"
+        app:layout_constraintStart_toStartOf="@+id/goals_record_view"
+        app:layout_constraintEnd_toEndOf="@+id/goals_record_view"
+        android:text="-"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+
+    <!-- End Game Button-->
+    <Button
+        android:id="@+id/end_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/end_game_button_text"
+        android:onClick="endGame"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,9 +53,8 @@ public class FieldActivity extends AppCompatActivity {
     private TextView fieldNameTextView;
     private TextView fieldAddressTextView;
 
-    Button joinLeaveBtn;
+    Button joinLeaveBtn, swapTeamBtn, startGameBtn;
     boolean isJoined = false;
-    Button swapTeamBtn;
 
     private SessionHandler session;
     private User currUser;
@@ -77,7 +76,9 @@ public class FieldActivity extends AppCompatActivity {
 
         joinLeaveBtn = findViewById(R.id.joinLeaveBtnId);
         swapTeamBtn = findViewById(R.id.swapTeamBtnId);
+        startGameBtn = findViewById(R.id.start_game_button);
         swapTeamBtn.setClickable(isJoined); // not pressable if no team joined
+        startGameBtn.setClickable(isJoined); // ditto
 
         fieldNameTextView = findViewById(R.id.fieldNameId);
         fieldAddressTextView = findViewById(R.id.fieldAddressId);
@@ -179,6 +180,10 @@ public class FieldActivity extends AppCompatActivity {
 
         swapTeamBtn.setClickable(isJoined);
         swapTeamBtn.setAlpha(isJoined ? 1 : (float) 0.5);
+
+        startGameBtn.setClickable(isJoined);
+        startGameBtn.setAlpha(isJoined ? 1 : (float) 0.5);
+
     }
 
     /**
@@ -324,5 +329,11 @@ public class FieldActivity extends AppCompatActivity {
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
+    }
+
+    public void recordGame(View view) {
+        Intent recordGameIntent = new Intent(this, GameStatRecordActivity.class);
+        recordGameIntent.putExtra("place_id", place_id);
+        startActivity(recordGameIntent);
     }
 }
