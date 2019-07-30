@@ -2,27 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_green_light">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <Spinner
         android:id="@+id/position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Position"
         android:layout_centerInParent="true"
-        android:textSize="30sp"
-        />
+        android:hint="Position"
+        android:textSize="30sp" />
+
     <TextView
         android:id="@+id/position_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Position:"
-        android:textSize="30sp"
         android:layout_centerInParent="true"
         android:layout_toLeftOf="@+id/position"
+        android:text="Position:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
 
-        />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/thisUser"
