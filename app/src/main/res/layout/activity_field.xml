@@ -45,23 +45,62 @@
         app:layout_constraintTop_toBottomOf="@+id/fieldNameId"
         app:layout_constraintVertical_bias="0.029" />
 
+    <!-- Home Team Roster-->
     <ListView
-        android:id="@+id/playerListViewId"
-        android:layout_width="400dp"
+        android:id="@+id/homePlayerListViewId"
+        android:layout_width="0dp"
         android:layout_height="350dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/awayPlayerListViewId"
+        app:layout_constraintTop_toBottomOf="@id/fieldAddressId"
+        app:layout_constraintVertical_bias=".096"
+        android:layout_marginRight="8dp" />
+
+    <!-- Away Team Roster -->
+    <ListView
+        android:layout_width="0dp"
+        android:id="@+id/awayPlayerListViewId"
+        android:layout_height="350dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldAddressId"
+        app:layout_constraintStart_toEndOf="@id/homePlayerListViewId"
+        app:layout_constraintTop_toBottomOf="@id/fieldAddressId"
         app:layout_constraintVertical_bias="0.096" />
 
+    <!-- Swap Team Button-->
     <Button
-        android:id="@+id/joinBtnId"
+        android:id="@+id/swapTeamBtnId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Swap Team"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/joinLeaveBtnId"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homePlayerListViewId"
+        app:layout_constraintVertical_bias="0.503" />
+
+    <!-- Join/Leave Game Button -->
+    <Button
+        android:id="@+id/joinLeaveBtnId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -73,25 +112,10 @@
         android:text="Join"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/leaveBtnId"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerListViewId"
-        app:layout_constraintVertical_bias="0.503" />
-
-    <Button
-        android:id="@+id/leaveBtnId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginBottom="8dp"
-        android:text="Leave"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerListViewId"
+        app:layout_constraintTop_toBottomOf="@id/swapTeamBtnId"
         app:layout_constraintVertical_bias="0.503" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

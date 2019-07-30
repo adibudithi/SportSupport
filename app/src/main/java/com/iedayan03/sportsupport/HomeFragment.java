@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> fieldAddresses;
     ArrayList<String> fieldPlaceIds;
     private RequestQueue mQueue;
-    private String fetchMoviesUrl = "http://iedayan03.web.illinois.edu/fetch_fields.php";
+    private String fetchFieldsUrl = "http://iedayan03.web.illinois.edu/fetch_fields.php";
 
     @Nullable
     @Override
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
      * This method makes a GET request to our database using the Volley library and stores the response into fieldArray
      */
     private void loadFields() {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, fetchMoviesUrl, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, fetchFieldsUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
