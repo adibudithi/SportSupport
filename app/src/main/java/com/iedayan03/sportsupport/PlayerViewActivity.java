@@ -21,10 +21,6 @@ public class PlayerViewActivity extends AppCompatActivity {
 
     private static final String USERNAME = "Username";
     private String username;
-    private String fullName;
-    private String position;
-    private int goals;
-    private int assists;
 
     private RequestQueue queue;
 

@@ -1,6 +1,7 @@
 package com.iedayan03.sportsupport;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,6 +54,8 @@ public class FieldActivity extends AppCompatActivity {
     private String playerName;
     private String place_id; // primary key of Field
     private RequestQueue queue;
+    private String fieldAddress;
+    private String fieldName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,8 @@ public class FieldActivity extends AppCompatActivity {
 
         fieldNameTextView = findViewById(R.id.fieldNameId);
         fieldAddressTextView = findViewById(R.id.fieldAddressId);
-        String fieldName = getIntent().getExtras().getString(FIELD_NAME);
-        String fieldAddress = getIntent().getExtras().getString(FIELD_ADDRESS);
+        fieldName = getIntent().getExtras().getString(FIELD_NAME);
+        fieldAddress = getIntent().getExtras().getString(FIELD_ADDRESS);
         place_id = getIntent().getExtras().getString(FIELD_PLACE_ID);
         fieldNameTextView.setText(fieldName);
         fieldAddressTextView.setText(fieldAddress);
@@ -222,5 +225,16 @@ public class FieldActivity extends AppCompatActivity {
         });
 
         queue.add(request);
+    }
+
+    /**
+     * On click method invoked when user clicks on the FieldAddressTextView
+     * @param view
+     */
+    public void displayLocation(View view) {
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + fieldAddress);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
 }
