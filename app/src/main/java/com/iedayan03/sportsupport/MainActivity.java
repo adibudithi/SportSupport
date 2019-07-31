@@ -48,5 +48,4 @@ public class MainActivity extends AppCompatActivity {
         // display home fragment when main activity is first opened
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
-
 }

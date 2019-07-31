@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        getActivity().setTitle("Your profile");
         session = new SessionHandler(getContext());
         current = session.getUserDetails();
         String name;

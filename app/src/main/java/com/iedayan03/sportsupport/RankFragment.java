@@ -82,6 +82,7 @@ public class RankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("Player rankings");
         View view = inflater.inflate(R.layout.fragment_rank, container, false);
         playerView = view.findViewById(R.id.playerViewId);
         listViewAdapter = new ArrayAdapter<>(
