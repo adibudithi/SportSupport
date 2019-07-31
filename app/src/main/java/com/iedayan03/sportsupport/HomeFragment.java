@@ -45,14 +45,15 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Soccer fields near you");
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         fieldListView = view.findViewById(R.id.fieldListView);
         fieldArray = new ArrayList<>();
         fieldAddresses = new ArrayList<>();
         fieldPlaceIds = new ArrayList<>();
+
         mQueue = Volley.newRequestQueue(getActivity());
         loadFields();
-
         /**
          * A listener that will direct the user to the activity "FieldActivity" when a soccer field
          * is clicked. This is incomplete as of now.
@@ -75,7 +76,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
         return view;
     }
 
