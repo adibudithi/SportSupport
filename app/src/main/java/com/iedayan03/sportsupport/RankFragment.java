@@ -106,7 +106,7 @@ public class RankFragment extends Fragment {
                         JSONObject player = jsonArray.getJSONObject(i);
                         String playerUserName = player.getString("Username");
                         Double playerRank = player.getDouble("Rating");
-                        String str = playerUserName + "   " + playerRank;
+                        String str = (i + 1) + "  -  " + playerUserName + "   (" + String.valueOf(playerRank).substring(0, 3) + ")";
                         rankedPlayersList.add(str);
                         listViewAdapter.notifyDataSetChanged();
                     }
