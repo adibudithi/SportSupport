@@ -3,12 +3,13 @@ package com.iedayan03.sportsupport;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.fragment.app.Fragment;
-import android.view.MenuItem;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static com.iedayan03.sportsupport.R.id.navigation_rank;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     selectedFragment = new HomeFragment();
+                    break;
+                case navigation_rank:
+                    selectedFragment = new RankFragment();
                     break;
                 case R.id.navigation_profile:
                     selectedFragment = new ProfileFragment();

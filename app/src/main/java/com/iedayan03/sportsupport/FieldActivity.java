@@ -331,6 +331,10 @@ public class FieldActivity extends AppCompatActivity {
         startActivity(mapIntent);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void recordGame(View view) {
         Intent recordGameIntent = new Intent(this, GameStatRecordActivity.class);
         recordGameIntent.putExtra("place_id", place_id);

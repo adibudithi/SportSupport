@@ -113,4 +113,8 @@
     <string name="goals_recorded_template">Goals: %d</string>
     <string name="assists_recorded_template">Assists: %d</string>
     <string name="record_game_button_text">Record Game</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rank">Rank</string>
 </resources>
