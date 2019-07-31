@@ -2,7 +2,6 @@ package com.iedayan03.sportsupport;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +98,7 @@ public class RankFragment extends Fragment {
                 String itemName = (String) adapterView.getItemAtPosition(position);
                 String[] result = itemName.split(" ");
                 Intent intent = new Intent(getContext(), PlayerViewActivity.class);
-                intent.putExtra("Username", result[0]);
+                intent.putExtra("Username", result[4]);
                 startActivity(intent);
             }
         });
