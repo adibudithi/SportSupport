@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment {
      *
      */
     private void displayFields() {
-        if (getActivity() != null){
+        if (getActivity() != null) {
             ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
                     getActivity(), android.R.layout.simple_list_item_1, fieldArray
             );
