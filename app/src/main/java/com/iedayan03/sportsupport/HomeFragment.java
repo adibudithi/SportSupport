@@ -42,6 +42,14 @@ public class HomeFragment extends Fragment {
     private RequestQueue mQueue;
     private String fetchFieldsUrl = "http://iedayan03.web.illinois.edu/fetch_fields.php";
 
+    private Double latitude; // could not finish location on time :/
+    private Double longitude;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +80,6 @@ public class HomeFragment extends Fragment {
                 intent.putExtra(FIELD_PLACE_ID, fieldPlaceId);
                 mQueue.stop();
                 startActivity(intent);
-
             }
         });
 
@@ -124,5 +131,4 @@ public class HomeFragment extends Fragment {
             fieldListView.setAdapter(listViewAdapter);
         }
     }
-
 }

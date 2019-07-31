@@ -49,7 +49,6 @@ public class PlayerViewActivity extends AppCompatActivity {
 
         userNameTextView.setText(username);
         loadUserDetails();
-
     }
 
     /**
@@ -64,8 +63,8 @@ public class PlayerViewActivity extends AppCompatActivity {
                     JSONObject player = jsonArray.getJSONObject(0);
                     fullNameTextView.setText(player.getString("FullName"));
                     positionTextView.setText(player.getString("Position"));
-                    goalsTextView.setText(String.valueOf(player.getInt("Goals")));
-                    assistsTextView.setText(String.valueOf(player.getInt("Assists")));
+                    goalsTextView.setText(String.format("Goals:\t%d", player.getInt("Goals")));
+                    assistsTextView.setText(String.format("Assists:\t%d",player.getInt("Assists")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
