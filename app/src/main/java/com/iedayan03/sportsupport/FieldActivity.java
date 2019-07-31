@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.view.View.*;
+import static android.view.View.OnClickListener;
 
 public class FieldActivity extends AppCompatActivity {
 
@@ -46,7 +46,7 @@ public class FieldActivity extends AppCompatActivity {
     private static final String JOIN_GAME_ERROR_RESPONSE = "You Can Only Join Once";
     private static final String LEAVE_GAME_ERROR_RESPONSE = "You Have Already Left The Game";
 
-    private ArrayList<String>  homePlayerNames, awayPlayerNames;
+    private ArrayList<String> homePlayerNames, awayPlayerNames;
     private ListView homePlayerListView, awayPlayerListView;
     private ArrayAdapter<String> homeAdapter, awayAdapter;
 
